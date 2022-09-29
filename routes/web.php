@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\HomepageController::class, 'index'])->name('homepage');
+Route::get('/about_us', [\App\Http\Controllers\AboutController::class, 'index'])->name('about-page');

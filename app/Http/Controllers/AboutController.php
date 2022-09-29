@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomepageController extends Controller
+class AboutController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -18,6 +18,6 @@ class HomepageController extends Controller
     }
 
     public function index(){
-        return view('homepage');
+        return view('about');
     }
 }
