@@ -13,5 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomepageController::class, 'index'])->name('homepage');
-Route::get('/about_us', [\App\Http\Controllers\AboutController::class, 'index'])->name('about-page');
+use App\Http\Controllers\HomepageController;
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+
+use App\Http\Controllers\ReservationsController;
+Route::get('/overzicht_reserveringen', [ReservationsController::class, 'index'])->name('reservations-page');
+
+use App\Http\Controllers\DetailsReservationController;
+Route::get('/overzicht_reserveringen/details', [DetailsReservationController::class, 'index'])->name('reservation-details');
+
+
+Auth::routes();
+use App\Http\Controllers\HomeController;
+Route::get('/inloggen', [HomeController::class, 'index'])->name('home');

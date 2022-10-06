@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 
-class AboutController extends Controller
+class ReservationsController
 {
     /**
      * Handle the incoming request.
@@ -18,6 +20,11 @@ class AboutController extends Controller
     }
 
     public function index(){
-        return view('about');
+        if (Auth::check()) {
+            $reservation = Reservation::all();
+            return view('reservations', compact('reservation'));
+        } else {
+            return view('errors.404');
+        }
     }
 }
