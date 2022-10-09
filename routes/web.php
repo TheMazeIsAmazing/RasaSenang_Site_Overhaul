@@ -16,11 +16,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomepageController;
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
+
 use App\Http\Controllers\ReservationsController;
 Route::get('/overzicht_reserveringen', [ReservationsController::class, 'index'])->name('reservations-page');
+Route::get('delete-reservation/{id}', [ReservationsController::class, 'destroy']);
+
+
+use App\Http\Controllers\ReservationFormController;
+Route::get('/reserveren', [ReservationFormController::class, 'index'])->name('reservation-form');
+
 
 use App\Http\Controllers\DetailsReservationController;
 Route::get('/overzicht_reserveringen/details', [DetailsReservationController::class, 'index'])->name('reservation-details');
+
 
 
 Auth::routes();

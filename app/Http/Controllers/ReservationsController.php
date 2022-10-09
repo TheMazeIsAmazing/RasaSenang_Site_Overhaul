@@ -8,15 +8,19 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationsController
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
+    public function destroy($id)
     {
-        //
+        if (Auth::check()) {
+            if (Reservation::find($id) && $id !== '') {
+                $reservation = Reservation::find($id);
+                $reservation->delete();
+                return redirect()->back()->with('status','Reservering is succesvol verwijderd!');
+            } else {
+                return view('errors.404');
+            }
+        } else {
+            return view('errors.404');
+        }
     }
 
     public function index(){

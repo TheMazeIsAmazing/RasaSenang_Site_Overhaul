@@ -8,8 +8,8 @@
             @yield('bottom_text')
         </p>
         <div class="showcase-button-container">
-            <a href="/afhalen" class="btn btn-primary">Afhalen</a>
-            <a href="/reserveren" class="btn btn-primary">Reserveren</a>
+            <a href="/afhalen" class="btn btn-danger">Afhalen</a>
+            <a href="/reserveren" class="btn btn-danger">Reserveren</a>
         </div>
     </div>
 </section>

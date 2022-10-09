@@ -5,6 +5,9 @@
 @section('content')
     <section id="section-table-reservations">
         <div class="container">
+            @if (session('status'))
+                <h6 class="alert alert-success">{{ session('status') }}</h6>
+            @endif
             <table>
                 <tr>
                     <th>id</th>
@@ -22,10 +25,10 @@
                         <a href="{{route('reservation-details')}}?id={{ $item->id }}" class="btn btn-success btn-sm">Details</a>
                     </td>
                     <td>
-                        <a href="" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="" class="btn btn-primary btn-sm">Wijzigen</a>
                     </td>
                     <td>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{{ url('delete-reservation/'.$item->id) }}" class="btn btn-danger btn-sm">Verwijderen</a>
                     </td>
                 </tr>
                 @endforeach
