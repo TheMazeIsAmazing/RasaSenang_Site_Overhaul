@@ -6,7 +6,7 @@
     <section id="section-table-reservations">
         <div class="container">
             <div>
-                <a href="{{route('reservations-page')}}" class="btn btn-success btn-sm">Alle reserveringen</a>
+                <a href="{{route('reservation.index')}}" class="btn btn-success btn-sm">Alle reserveringen</a>
             </div>
             <div>
                 <table>
@@ -22,6 +22,12 @@
                         <td>Datum</td>
                         <td>{{ $reservation->date }}</td>
                     </tr>
+                    <form action="{{route('reservation.destroy', $reservation->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-danger btn-sm" type="submit">Verwijderen</button>
+                    </form>
                 </table>
             </div>
 
