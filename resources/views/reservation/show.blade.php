@@ -9,26 +9,54 @@
                 <a href="{{route('reservation.index')}}" class="btn btn-success btn-sm">Alle reserveringen</a>
             </div>
             <div>
-                <table>
+                <table class="table table-bordered">
+                    <tr>
+                        <td>Datum</td>
+                        <td>{{ date('d-m-Y' , strtotime($reservation->date)) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Aanvangstijd</td>
+                        <td>{{ date('H:i' , strtotime($reservation->time)) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Aantal Gasten</td>
+                        <td>{{ htmlentities($reservation->people) }}</td>
+                    </tr>
                     <tr>
                         <td>Naam</td>
-                        <td>{{ $reservation->name }}</td>
+                        <td>{{ htmlentities($reservation->name) }}</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td>{{ $reservation->email }}</td>
+                        <td>{{ htmlentities($reservation->email_address) }}</td>
                     </tr>
                     <tr>
-                        <td>Datum</td>
-                        <td>{{ $reservation->date }}</td>
+                        <td>Telefoonnummer</td>
+                        <td>{{ htmlentities($reservation->phone_number) }}</td>
                     </tr>
+                    <tr>
+                        <td>Opmerkingen</td>
+                        <td>{{ htmlentities($reservation->comments) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Geplaatst op:</td>
+                        <td>{{ date('d-m-Y; H:i:s' , strtotime($reservation->created_at)) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Gewijzigd op:</td>
+                        <td>{{ date('d-m-Y; H:i:s' , strtotime($reservation->updated_at)) }}</td>
+                    </tr>
+                </table>
+                <div class="row">
                     <form action="{{route('reservation.destroy', $reservation->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
 
                         <button class="btn btn-danger btn-sm" type="submit">Verwijderen</button>
                     </form>
-                </table>
+
+                    <a class="btn btn-success btn-sm" type="submit" href="{{route('reservation.edit', $reservation->id)}}">Wijzigen</a>
+                </div>
             </div>
 
         </div>
