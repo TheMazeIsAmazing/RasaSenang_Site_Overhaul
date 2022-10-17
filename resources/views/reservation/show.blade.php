@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td>Naam</td>
-                        <td>{{ htmlentities($reservation->name) }}</td>
+                        <td>{{ htmlentities(html_entity_decode($reservation->name)) }}</td>
                     </tr>
                     <tr>
                         <td>Email</td>
@@ -36,7 +36,7 @@
                     </tr>
                     <tr>
                         <td>Opmerkingen</td>
-                        <td>{{ htmlentities($reservation->comments) }}</td>
+                        <td>{{ htmlentities(html_entity_decode($reservation->comments)) }}</td>
                     </tr>
                     <tr>
                         <td>Geplaatst op:</td>

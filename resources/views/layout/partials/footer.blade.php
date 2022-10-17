@@ -47,7 +47,7 @@
                             <!--                            <li><a href="#contact">Inloggen</a></li>-->
                             <li><a href="/">Home</a></li>
                             <li><a href="/buffet">All-in Buffet</a></li>
-                            <li><a href="/menukaart">À La Carte</a></li>
+                            <li><a href="{{ route('dish.index') }}">À La Carte</a></li>
                             <li><a href="/afhalen">Afhalen</a></li>
                             <li><a href="{{ route('reservation.create') }}">Reserveren</a></li>
                             <li><a href="/catering">Catering</a></li>

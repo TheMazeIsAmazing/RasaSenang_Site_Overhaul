@@ -18,20 +18,11 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 use App\Http\Controllers\ReservationController;
 Route::resource('reservation', ReservationController::class);
+Route::post('reservation/search', [ReservationController::class, 'search'])->name('reservation.search');
 
-//use App\Http\Controllers\ReservationsController;
-//Route::get('/overzicht_reserveringen', [ReservationsController::class, 'index'])->name('reservations-page');
-//Route::post('create-reservation', [ReservationsController::class, 'create'])->name('reservations.store');
-//Route::get('delete-reservation/{id}', [ReservationsController::class, 'destroy']);
-
-
-//use App\Http\Controllers\ReservationFormController;
-//Route::get('/reserveren', [ReservationFormController::class, 'index'])->name('reservation-form');
-
-
-use App\Http\Controllers\DetailsReservationController;
-Route::get('/overzicht_reserveringen/details', [DetailsReservationController::class, 'index'])->name('reservation-details');
-
+use App\Http\Controllers\DishController;
+Route::resource('dish', DishController::class);
+Route::post('dish/search', [DishController::class, 'search'])->name('dish.search');
 
 
 Auth::routes();

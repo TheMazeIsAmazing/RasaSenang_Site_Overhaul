@@ -9,7 +9,7 @@
         <ul class="menu-items-navbar-top">
             <li><a href={{ route('homepage') }}>Home</a></li>
             <li><a href="/buffet">All-in Buffet</a></li>
-            <li><a href="/menukaart">Menukaart</a></li>
+            <li><a href="{{ route('dish.index') }}">Menukaart</a></li>
             <li><a href="/afhalen">Afhalen</a></li>
             <li><a href="{{ route('reservation.create') }}">Reserveren</a></li>
             <li><a href="/catering">Catering</a></li>

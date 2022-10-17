@@ -1,5 +1,10 @@
 @extends('layouts.web')
 @section('title', 'Welkom op onze site')
+@if(Auth::user()->role == 0)
+    @section('top_text', 'Welkom Admin.')
+@else
+    @section('top_text', 'Welkom Gebruiker.')
+@endif
 @section('top_text', 'Welkom Gebruiker.')
 @section('bottom_text', 'Wat wilt u vandaag doen?')
 

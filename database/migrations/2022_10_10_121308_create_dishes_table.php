@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name', 255);
+            $table->string('image', 255);
+            $table->text('description')->nullable();
+            $table->tinyInteger('highlighted')->unsigned();
         });
     }
 
