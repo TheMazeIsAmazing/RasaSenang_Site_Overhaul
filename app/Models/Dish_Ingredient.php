@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ingredients extends Model
+class Dish_Ingredient extends Model
 {
     use HasFactory;
 
-    protected $table = 'ingredients';
+    protected $table = 'dish_ingredient';
     protected $fillable = [
-        'name',
+        'dish_id',
+        'ingredient_id',
     ];
-    public function dishes() {
-        return $this->belongsToMany(Dishes::class);
-    }
 }

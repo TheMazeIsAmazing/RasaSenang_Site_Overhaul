@@ -54,8 +54,8 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ date('d-m-Y' , strtotime($item->date)) }}</td>
                         <td>{{ date('H:i' , strtotime($item->time)) }}</td>
-                        <td>{{ htmlentities($item->people) }}</td>
-                        <td>{{ htmlentities($item->name) }}</td>
+                        <td>{{ $item->people }}</td>
+                        <td>{{ $item->name }}</td>
                         <td>
                             <a href="{{route('reservation.show', ['reservation' => $item->id])}}"
                                class="btn btn-success btn-sm">Details</a>

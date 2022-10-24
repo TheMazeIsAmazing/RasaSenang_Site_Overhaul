@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dishes', function (Blueprint $table) {
+        Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name', 255);
-            $table->string('image', 255);
-            $table->text('description')->nullable();
-            $table->tinyInteger('highlighted')->unsigned();
-            // define foreign key
 //            $table->foreignId('dish_ingredient_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
+
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dishes');
+        Schema::dropIfExists('ingredients');
     }
 };

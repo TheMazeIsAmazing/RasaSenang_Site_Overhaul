@@ -20,18 +20,11 @@
                     </tr>
                     <tr>
                         <td>Ingredienten</td>
-                        <td>                          @foreach($dish_ingredient as $ingredient)
-                                @if($ingredient->dish_id !== null && $ingredient->ingredient_id !== null)
-                                    @if($ingredient->dish_id == $dish->id)
-                                        <li>{{$ingredients[$ingredient->ingredient_id - 1]->name}}</li>
-                                    @endif
-                                @endif
-                            @endforeach</td>
+                        <td>Wow, een hele lijst</td>
                     </tr>
                     <tr>
                         <td>Foto</td>
-                        <td><img src="{{asset('storage/images/'.$dish->image)}}" style="height: 200px; width: 300px"
-                                 alt="{{$dish->name}}"></td>
+                        <td><img src="{{asset($dish->image)}}" style="height: 200px; width: 300px" alt="{{$dish->name}}"></td>
                     </tr>
                 </table>
                 <div class="row">
@@ -42,10 +35,10 @@
                         <button class="btn btn-danger btn-sm" type="submit">Verwijderen</button>
                     </form>
 
-                    {{--                    <a class="btn btn-success btn-sm" type="submit" href="{{route('dish.edit', $dish->id)}}">Wijzigen</a>--}}
-                    {{--                </div>--}}
-                </div>
+{{--                    <a class="btn btn-success btn-sm" type="submit" href="{{route('dish.edit', $dish->id)}}">Wijzigen</a>--}}
+{{--                </div>--}}
             </div>
+
         </div>
     </section>
 @endsection

@@ -14,9 +14,10 @@ class Dishes extends Model
         'name',
         'description',
         'image',
+        'highlighted',
     ];
 
     public function ingredients(){
-        return $this->hasMany(Ingredients::class);
+        return $this->belongsToMany(Ingredients::class);
     }
 }

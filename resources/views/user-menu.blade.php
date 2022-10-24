@@ -25,6 +25,10 @@
                             Overzicht reserveringen
                         </a>
 
+                            <a class="btn btn-primary" href={{route('dish.index')}}>
+                                Overzicht gerechten
+                            </a>
+
                         <a class="btn btn-danger" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

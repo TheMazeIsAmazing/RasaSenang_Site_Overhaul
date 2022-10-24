@@ -48,7 +48,6 @@ class ReservationController extends Controller
                     ->orWhere('phone_number', 'like', '%' . $request->other . '%')
                     ->get();
                 if (count($reservation) >= 1) {
-//                    return view('reservation.index', ['reservation' => $reservation, 'value_date_or_other' => $request->date_or_other, 'value_other' => $request->other]);
                     return view('reservation.index', compact('reservation'));
                 } else {
                     $reservation = Reservation::all();
@@ -100,7 +99,11 @@ class ReservationController extends Controller
     public function show(reservation $reservation)
     {
         if (Auth::check()) {
-            return view('reservation.show', compact('reservation'));
+            if($reservation->email_address == Auth::user()->email || Auth::user()->role == 0){
+                return view('reservation.show', compact('reservation'));
+            } else {
+                return view('errors.403');
+            }
         } else {
             return view('errors.403');
         }
@@ -115,7 +118,11 @@ class ReservationController extends Controller
     public function edit(reservation $reservation)
     {
         if (Auth::check()) {
-            return view('reservation.edit', compact('reservation'));
+            if($reservation->email_address == Auth::user()->email || Auth::user()->role == 0){
+                return view('reservation.edit', compact('reservation'));
+            } else {
+                return view('errors.403');
+            }
         } else {
             return view('errors.403');
         }

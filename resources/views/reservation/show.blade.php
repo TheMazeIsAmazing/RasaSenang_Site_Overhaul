@@ -20,23 +20,23 @@
                     </tr>
                     <tr>
                         <td>Aantal Gasten</td>
-                        <td>{{ htmlentities($reservation->people) }}</td>
+                        <td>{{ $reservation->people }}</td>
                     </tr>
                     <tr>
                         <td>Naam</td>
-                        <td>{{ htmlentities(html_entity_decode($reservation->name)) }}</td>
+                        <td>{{ $reservation->name }}</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td>{{ htmlentities($reservation->email_address) }}</td>
+                        <td>{{ $reservation->email_address }}</td>
                     </tr>
                     <tr>
                         <td>Telefoonnummer</td>
-                        <td>{{ htmlentities($reservation->phone_number) }}</td>
+                        <td>{{ $reservation->phone_number }}</td>
                     </tr>
                     <tr>
                         <td>Opmerkingen</td>
-                        <td>{{ htmlentities(html_entity_decode($reservation->comments)) }}</td>
+                        <td>{{ $reservation->comments }}</td>
                     </tr>
                     <tr>
                         <td>Geplaatst op:</td>
