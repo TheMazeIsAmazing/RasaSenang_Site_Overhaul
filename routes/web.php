@@ -23,6 +23,7 @@ Route::post('reservation/search', [ReservationController::class, 'search'])->nam
 use App\Http\Controllers\DishController;
 Route::resource('dish', DishController::class);
 Route::post('dish/{dish}/toggleHighlight', [DishController::class, 'toggleHighlight'])->name('dish.toggleHighlight');
+Route::post('dish/search', [DishController::class, 'search'])->name('dish.search');
 
 
 Auth::routes();

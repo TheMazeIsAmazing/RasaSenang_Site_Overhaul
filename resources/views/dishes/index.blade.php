@@ -27,8 +27,36 @@
             <h3>Alle items</h3>
             @if(Auth::check())
                 @if(Auth::user()->role == 0)
-                    <a href="{{route('dish.create')}}"
-                       class="btn btn-primary btn-sm">Nieuw gerecht</a>
+                        <a href="{{route('dish.create')}}"
+                           class="btn btn-danger btn-sm">Nieuw gerecht</a>
+                        <form class="row flex-wrap" method="post"
+                              action="{{route('dish.search')}}">
+                            @csrf
+                            <div class="form-group mb-3 flex">
+                                <select name="ingredient" class="form-control">
+                                    <option value="">Kies een ingredient
+                                    </option>
+                                    @foreach($ingredients as $ingredient)
+                                        <option value="{{strtolower($ingredient->id)}}">{{strtolower($ingredient->name)}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('ingredient')
+                                <span class="alert-danger"> {{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" name="other" placeholder="Typ een naam of beschrijving"
+                                       class="form-control"
+                                       value="{{old('other')}}">
+                                @error('date')
+                                <span class="alert-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
+                                <button type="submit" name="submit" class="btn btn-primary">Zoeken</button>
+                            </div>
+                        </form>
                 @endif
             @endif
             <table class="table table-bordered">
@@ -53,25 +81,14 @@
                         <td>{{ $item->description }}</td>
                         <td>
                             <ul>
-                                @foreach($dish_ingredient as $ingredient)
-                                    @if($ingredient->dish_id !== null && $ingredient->ingredient_id !== null)
-                                        @if($ingredient->dish_id == $item->id)
-                                            <li>{{$ingredients[$ingredient->ingredient_id - 1]->name}}</li>
-                                        @endif
-                                    @endif
+                                @foreach($item->ingredients as $ingredient)
+                                    <li>{{$ingredient->name}}</li>
                                 @endforeach
                             </ul>
                         </td>
                         @if(Auth::check())
                             @if(Auth::user()->role == 0)
                                 <td>
-                                    {{--                                    <form id="toggleHighlightForm" action="{{route('dish.toggleHighlight', $item)}}"--}}
-                                    {{--                                          method="POST">--}}
-                                    {{--                                        @csrf--}}
-                                    {{--                                        <label for="toggleHighlight" style="display: none"></label><input--}}
-                                    {{--                                            type="checkbox" name="toggleHighlight" id="toggleHighlight"--}}
-                                    {{--                                            @if($item->highlighted == 1) checked @endif>--}}
-                                    {{--                                    </form>--}}
                                     <form class="toggleHighlightForm" action="{{route('dish.toggleHighlight', $item)}}"
                                           method="POST">
                                         @csrf

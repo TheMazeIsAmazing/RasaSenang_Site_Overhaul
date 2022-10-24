@@ -20,13 +20,13 @@
                     </tr>
                     <tr>
                         <td>Ingredienten</td>
-                        <td>                          @foreach($dish_ingredient as $ingredient)
-                                @if($ingredient->dish_id !== null && $ingredient->ingredient_id !== null)
-                                    @if($ingredient->dish_id == $dish->id)
-                                        <li>{{$ingredients[$ingredient->ingredient_id - 1]->name}}</li>
-                                    @endif
-                                @endif
-                            @endforeach</td>
+                        <td>
+                            <ul>
+                                @foreach($dish->ingredients as $ingredient)
+                                    <li>{{$ingredient->name}}</li>
+                                @endforeach
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <td>Foto</td>

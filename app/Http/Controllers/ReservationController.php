@@ -17,7 +17,12 @@ class ReservationController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $reservation = Reservation::all();
+            if (Auth::user()->role !== 0) {
+                $reservation = Reservation::where('email_address', '=', Auth::user()->email)->get()->sortBy('date');
+            } else {
+                $reservation = Reservation::all()->sortBy('date');
+            }
+
             return view('reservation.index', compact('reservation'));
         } else {
             return view('errors.403');

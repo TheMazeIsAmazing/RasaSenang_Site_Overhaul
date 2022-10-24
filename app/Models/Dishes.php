@@ -17,7 +17,8 @@ class Dishes extends Model
         'highlighted',
     ];
 
-    public function ingredients(){
-        return $this->belongsToMany(Ingredients::class);
+    public function ingredients(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Ingredients::class, 'dish_ingredient', 'dish_id', 'ingredient_id');
     }
 }

@@ -19,9 +19,8 @@ class DishController extends Controller
     public function index()
     {
         $dishes = Dishes::all();
-        $dish_ingredient = Dish_Ingredient::all();
         $ingredients = Ingredients::all();
-        return view('dishes.index', compact('dishes', 'dish_ingredient', 'ingredients'));
+        return view('dishes.index', compact('dishes', 'ingredients'));
     }
 
     /**
@@ -103,12 +102,8 @@ class DishController extends Controller
     {
         if (Auth::check()) {
             if (Auth::user()->role == 0) {
-//                $dish_ingredient = Dish_Ingredient::where('dish_id', '=', $dish->id);
-                $dish_ingredient = Dish_Ingredient::all();
-
-
                 $ingredients = Ingredients::all();
-                return view('dishes.show', compact('dish', 'dish_ingredient', 'ingredients'));
+                return view('dishes.show', compact('dish', 'ingredients'));
             } else {
                 return view('errors.403');
             }
@@ -161,6 +156,67 @@ class DishController extends Controller
             $dish->highlighted = 0;
             $dish->save();
             return redirect()->route('dish.index')->with('status', 'Gerecht is succesvol ongehighlight!');
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function search(Request $request)
+    {
+//        $dishes = Dishes::all();
+//        $dish_ingredient = Dish_Ingredient::all();
+//        $ingredients = Ingredients::all();
+//        return view('dishes.index', compact('dishes', 'ingredients'));
+        if (Auth::check()) {
+//            dd($request);
+            if (isset($request->ingredient)) {
+                if (isset($request->other)) {
+                    $dishes = Dishes::whereHas('ingredients', function ($query) use ($request) {
+                        $query->where('ingredient_id', '=', $request->ingredient);
+                    })->where('name', 'like', '%' . $request->other . '%')->orWhereHas('ingredients', function ($query) use ($request) {
+                        $query->where('ingredient_id', '=', $request->ingredient);
+                    })->where('description', 'like', '%' . $request->other . '%')->get();
+                } else {
+                    $dishes = Dishes::whereHas('ingredients', function ($query) use ($request) {
+                        $query->where('ingredient_id', '=', $request->ingredient);
+                    })->get();
+//                    dd($dishes);
+                }
+            } elseif (isset($request->other)) {
+                $dishes = Dishes::where('name', 'like', '%' . $request->other . '%')->orWhere('description', 'like', '%' . $request->other . '%')->get();
+            } else {
+                $dishes = Dishes::all();
+            }
+            $ingredients = Ingredients::all();
+            return view('dishes.index', compact('dishes', 'ingredients'));
+
+//            if ($request->date_or_other == 'time') {
+//                $reservation = Reservation::where('date', '=', $request->date)->get();
+//                if (count($reservation) >= 1) {
+//                    return view('reservation.index', compact('reservation'));
+//                } else {
+//                    $reservation = Reservation::all();
+//                    return view('reservation.index', compact('reservation'))->with('status', 'Met huidige zoekopdracht hebben we niets gevonden, we laten alle reserveringen zien');
+//                }
+//            } else {
+//                $reservation = Reservation::where('name', 'like', '%' . $request->other . '%')
+//                    ->orWhere('people', 'like', '%' . $request->other . '%')
+//                    ->orWhere('id', 'like', '%' . $request->other . '%')
+//                    ->orWhere('email_address', 'like', '%' . $request->other . '%')
+//                    ->orWhere('phone_number', 'like', '%' . $request->other . '%')
+//                    ->get();
+//                if (count($reservation) >= 1) {
+//                    return view('reservation.index', compact('reservation'));
+//                } else {
+//                    $reservation = Reservation::all();
+//                    return view('reservation.index', compact('reservation'))->with('status', 'Met huidige zoekopdracht hebben we niets gevonden, we laten alle reserveringen zien');
+//                }
+//            }
+        } else {
+            return view('errors.403');
         }
     }
 

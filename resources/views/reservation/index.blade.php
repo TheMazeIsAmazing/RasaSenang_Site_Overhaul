@@ -8,7 +8,7 @@
             @if (session('status'))
                 <h6 class="alert alert-success">{{ session('status') }}</h6>
             @endif
-
+                @if (Auth::user()->role == 0)
                 <form method="post"
                       class="row flex-wrap"
                       action="{{route('reservation.search')}}">
@@ -40,29 +40,35 @@
                         <button type="submit" name="submit" class="btn btn-primary">Zoeken</button>
                     </div>
                 </form>
-            <table class="table table-bordered">
-                <tr>
-                    <th>id</th>
-                    <th>Datum</th>
-                    <th>Aanvangstijd</th>
-                    <th>Aantal Gasten</th>
-                    <th>Naam</th>
-                    <th></th>
-                </tr>
-                @foreach ($reservation as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ date('d-m-Y' , strtotime($item->date)) }}</td>
-                        <td>{{ date('H:i' , strtotime($item->time)) }}</td>
-                        <td>{{ $item->people }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>
-                            <a href="{{route('reservation.show', ['reservation' => $item->id])}}"
-                               class="btn btn-success btn-sm">Details</a>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
+                @endif
+                @if(count($reservation))
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>id</th>
+                            <th>Datum</th>
+                            <th>Aanvangstijd</th>
+                            <th>Aantal Gasten</th>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                        @foreach ($reservation as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ date('d-m-Y' , strtotime($item->date)) }}</td>
+                                <td>{{ date('H:i' , strtotime($item->time)) }}</td>
+                                <td>{{ $item->people }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>
+                                    <a href="{{route('reservation.show', ['reservation' => $item->id])}}"
+                                       class="btn btn-success btn-sm">Details</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                @else
+                    <h6 class="alert alert-danger">Oeps, er zijn helaas geen reserveringen gevonden!</h6>
+                @endif
+
         </div>
     </section>
     <script>
