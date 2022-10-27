@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Dishes;
 use App\Models\Ingredients;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +16,7 @@ class DishController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -24,7 +28,7 @@ class DishController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -34,20 +38,20 @@ class DishController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'required|mimes:jpeg,bmp,png',
+            'image' => 'nullable|size:10000|mimes:jpeg,bmp,png',
         ]);
         $request->file('image')->store('public/images');
         $dish = new Dishes();
-        $dish->name = $request->name;
-        $dish->description = $request->description;
+        $dish->name = $request->input('name');
+        $dish->description = $request->input('description');
         if ($request->has('highlighted')) {
             $dish->highlighted = 1;
         } else {
@@ -62,8 +66,8 @@ class DishController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\dishes $dish
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Dishes $dish
+     * @return Application|Factory|View
      */
     public function show(dishes $dish)
     {
@@ -82,8 +86,8 @@ class DishController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\dishes $dish
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Dishes $dish
+     * @return Application|Factory|View
      */
     public function edit(Dishes $dish)
     {
@@ -101,16 +105,16 @@ class DishController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\dishes $dish
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Dishes $dish
+     * @return RedirectResponse
      */
     public function update(Request $request, Dishes $dish)
     {
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'nullable|mimes:jpeg,bmp,png',
+            'image' => 'nullable|size:10000|mimes:jpeg,bmp,png',
         ]);
         $dish->name = $request->input('name');
         $dish->description = $request->input('description');
@@ -131,8 +135,8 @@ class DishController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Dishes $dish
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Dishes $dish
+     * @return RedirectResponse
      */
     public function destroy(Dishes $dish)
     {
@@ -151,10 +155,9 @@ class DishController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Dishes $dish
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Throwable
+     * @param Request $request
+     * @param Dishes $dish
+     * @return RedirectResponse
      */
     public function toggleHighlight(Request $request, Dishes $dish)
     {
@@ -175,20 +178,20 @@ class DishController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function search(Request $request)
     {
         if (isset($request->ingredient)) {
             if (isset($request->other)) {
                 $dishes = Dishes::whereHas('ingredients', function ($query) use ($request) {
-                    $query->where('ingredient_id', '=', $request->ingredient);
+                    $query->where('ingredient_id', '=', $request->input('ingredient'));
                 })->where('name', 'like', '%' . $request->other . '%')->orWhereHas('ingredients', function ($query) use ($request) {
-                    $query->where('ingredient_id', '=', $request->ingredient);
+                    $query->where('ingredient_id', '=', $request->input('ingredient'));
                 })->where('description', 'like', '%' . $request->other . '%')->get();
             } else {
                 $dishes = Dishes::whereHas('ingredients', function ($query) use ($request) {
-                    $query->where('ingredient_id', '=', $request->ingredient);
+                    $query->where('ingredient_id', '=', $request->input('ingredient'));
                 })->get();
             }
         } elseif (isset($request->other)) {
@@ -203,8 +206,8 @@ class DishController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\dishes $dish
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Dishes $dish
+     * @return Application|Factory|View
      */
     public function edit_ingredients(Dishes $dish)
     {
@@ -223,9 +226,9 @@ class DishController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\dishes $dish
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Dishes $dish
+     * @return RedirectResponse
      */
     public function store_ingredients(Request $request, Dishes $dish)
     {
@@ -255,6 +258,6 @@ class DishController extends Controller
         $ingredient = Ingredients::find($ingredient_remove_array);
         $dish->ingredients()->detach($ingredient);
 
-        return redirect()->route('dish.show', $dish)->with('status', 'Ingredienten zijn succesvol aangepast!');
+        return redirect()->route('dish.show', $dish)->with('status', 'Ingrediënten zijn succesvol aangepast!');
     }
 }

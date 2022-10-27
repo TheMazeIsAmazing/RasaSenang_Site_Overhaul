@@ -1,7 +1,7 @@
 @extends('layouts.web')
 @section('title', 'Ingredient nr. '.$ingredient->id.' wijzigen')
 @section('top_text', 'Ingredient nr. '.$ingredient->id.' wijzigen')
-@section('bottom_text', 'Oepsie, poepsie')
+@section('bottom_text', 'Corrigeer een typfoutje bij een ingredient')
 @section('content')
     <section id="section-table-reservations">
         <div class="container">

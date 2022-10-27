@@ -26,7 +26,7 @@
     <section id="food">
         <h2>Onze Gerechten</h2>
         <div class="food-container container">
-            <div class="food-type fruite">
+            <div class="food-type fruit">
                 <div class="img-container">
                     <img src="{{asset('images/indonesisch-vleesgerecht.png')}}" alt="Indonesisch vleesgerecht"/>
                     <div class="img-content">

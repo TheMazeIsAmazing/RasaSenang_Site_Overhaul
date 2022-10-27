@@ -1,6 +1,6 @@
 @extends('layouts.web')
-@section('title', 'Ingredienten toevoegen/verwijderen gerecht')
-@section('top_text', 'Ingredienten toevoegen aan/verwijderen van '.$dish->name)
+@section('title', 'Ingrediënten toevoegen/verwijderen gerecht')
+@section('top_text', 'Ingrediënten toevoegen aan/verwijderen van '.$dish->name)
 @section('bottom_text', 'Lekker, nu met kip!')
 @section('content')
     <section id="section-table-reservations">
@@ -12,7 +12,7 @@
                         <label for="{{strtolower($ingredient->name)}}">{{$ingredient->name}}</label>
                         <input
                             type="checkbox" id="{{strtolower($ingredient->name)}}}"
-                            name="{{strtolower($ingredient->id)}}" @foreach($dish->ingredients as $dish_ingredient)
+                            name="{{$ingredient->id}}" @foreach($dish->ingredients as $dish_ingredient)
                                 @if($dish_ingredient->name == $ingredient->name) checked @endif
                             @endforeach>
                     </div>

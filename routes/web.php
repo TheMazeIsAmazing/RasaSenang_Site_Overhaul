@@ -30,8 +30,8 @@ Route::post('dish/search', [DishController::class, 'search'])->name('dish.search
 Route::get('dish/{dish}/edit_ingredients', [DishController::class, 'edit_ingredients'])->name('dish.edit_ingredients');
 Route::post('dish/{dish}/store_ingredients', [DishController::class, 'store_ingredients'])->name('dish.store_ingredients');
 
-use App\Http\Controllers\IngredientCotroller;
-Route::resource('ingredient', IngredientCotroller::class);
+use App\Http\Controllers\IngredientController;
+Route::resource('ingredient', IngredientController::class);
 
 use App\Http\Controllers\ReviewController;
 Route::resource('review', ReviewController::class);

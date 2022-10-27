@@ -51,7 +51,7 @@
                             <li><a href="/afhalen">Afhalen</a></li>
                             <li><a href="{{ route('reservation.create') }}">Reserveren</a></li>
                             <li><a href="/catering">Catering</a></li>
-                            <li><a href="/contact"">Contact</a></li>
+                            <li><a href="/contact">Contact</a></li>
                             <li><a href="/inloggen">Account</a></li>
                             <li><a href="/vacatures">Vacatures</a></li>
                             <li><a href="/privacystatement">Privacystatement</a></li>
@@ -68,7 +68,9 @@
                         </div>
                         <div class="subscribe-form">
                             <form action="#">
-                                <input type="text" placeholder="jan-en-alleman@voorbeeld.nl">
+                                <label for="email-newsletter" style="display: none">
+                                </label>
+                                <input id="email-newsletter" name="email-newsletter" type="text" placeholder="jan-en-alleman@voorbeeld.nl">
                                 <button><i class="fab fa-telegram-plane"></i></button>
                             </form>
                         </div>

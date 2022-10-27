@@ -31,7 +31,7 @@
                         <a href="{{route('dish.create')}}"
                            class="btn btn-danger btn-sm">Nieuw gerecht</a>
                             <a href="{{route('ingredient.index')}}"
-                               class="btn btn-primary btn-sm">Ingredienten overzicht</a>
+                               class="btn btn-primary btn-sm">Ingrediënten overzicht</a>
                         </div>
                 @endif
             @endif
@@ -43,7 +43,7 @@
                             <option value="">Kies een ingredient
                             </option>
                             @foreach($ingredients as $ingredient)
-                                <option value="{{strtolower($ingredient->id)}}">{{strtolower($ingredient->name)}}
+                                <option value="{{$ingredient->id}}">{{strtolower($ingredient->name)}}
                                 </option>
                             @endforeach
                         </select>
@@ -68,7 +68,7 @@
                     <th></th>
                     <th>Naam</th>
                     <th>Beschrijving</th>
-                    <th>Ingredienten</th>
+                    <th>Ingrediënten</th>
                     @if(Auth::check())
                         @if(Auth::user()->role == 0)
                             <th></th>

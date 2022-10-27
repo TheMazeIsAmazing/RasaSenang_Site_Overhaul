@@ -22,7 +22,7 @@
                         <td>{{ $dish->description }}</td>
                     </tr>
                     <tr>
-                        <td>Ingredienten</td>
+                        <td>Ingrediënten</td>
                         <td>
                             <ul>
                                 @foreach($dish->ingredients as $ingredient)
@@ -48,11 +48,10 @@
                     <a class="btn btn-success btn-sm" type="submit"
                        href="{{route('dish.edit', $dish->id)}}">Wijzigen</a>
                     <a class="btn btn-primary btn-sm" type="submit"
-                       href="{{route('dish.edit_ingredients', $dish->id)}}">Aanpassen/Toevoegen ingredienten</a>
+                       href="{{route('dish.edit_ingredients', $dish->id)}}">Aanpassen/Toevoegen Ingrediënten</a>
 
                 </div>
             </div>
-        </div>
         </div>
     </section>
 @endsection

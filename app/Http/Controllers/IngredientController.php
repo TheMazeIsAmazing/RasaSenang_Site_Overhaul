@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredients;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IngredientCotroller extends Controller
+class IngredientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -32,8 +36,8 @@ class IngredientCotroller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -41,7 +45,7 @@ class IngredientCotroller extends Controller
             'name' => 'required|max:255',
         ]);
         $ingredient = new Ingredients();
-        $ingredient->name = $request->name;
+        $ingredient->name = $request->input('name');
         $ingredient->save();
         return redirect()->route('ingredient.index')->with('status', 'Ingredient is Succesvol aangemaakt');
     }
@@ -50,8 +54,8 @@ class IngredientCotroller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Ingredients $ingredient
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Ingredients $ingredient
+     * @return Application|Factory|View
      */
     public function edit(Ingredients $ingredient)
     {
@@ -69,9 +73,9 @@ class IngredientCotroller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Ingredients $ingredient
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Ingredients $ingredient
+     * @return RedirectResponse
      */
     public function update(Request $request, Ingredients $ingredient)
     {
@@ -88,8 +92,8 @@ class IngredientCotroller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Ingredients $ingredient
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Ingredients $ingredient
+     * @return RedirectResponse
      */
     public function destroy(Ingredients $ingredient)
     {

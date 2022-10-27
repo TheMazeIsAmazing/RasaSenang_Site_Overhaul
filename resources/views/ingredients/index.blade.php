@@ -1,6 +1,6 @@
 @extends('layouts.web')
-@section('title', 'Alle Ingredienten')
-@section('top_text', 'Alle Ingredienten')
+@section('title', 'Alle Ingrediënten')
+@section('top_text', 'Alle Ingrediënten')
 @section('bottom_text', 'Wat vind jij lekker in een gerecht?')
 @section('content')
     <section id="section-table-reservations">
@@ -28,7 +28,6 @@
                 </tr>
                 @foreach ($ingredients as $item)
                     <tr>
-                        </td>
                         <td>{{ $item->name }}</td>
                         <td>
                             <form data-disable="false" action="{{route('ingredient.destroy', $item->id)}}"

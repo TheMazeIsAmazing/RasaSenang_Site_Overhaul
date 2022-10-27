@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\reservation;
+use App\Models\Reservation;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +16,7 @@ class ReservationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -32,7 +36,7 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -42,8 +46,8 @@ class ReservationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -63,8 +67,8 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\reservation $reservation
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Reservation $reservation
+     * @return Application|Factory|View
      */
     public function show(reservation $reservation)
     {
@@ -82,8 +86,8 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\reservation $reservation
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Reservation $reservation
+     * @return Application|Factory|View
      */
     public function edit(reservation $reservation)
     {
@@ -101,9 +105,9 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\reservation $reservation
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Request $request
+     * @param Reservation $reservation
+     * @return RedirectResponse|Application|Factory|View
      */
     public function update(Request $request, reservation $reservation)
     {
@@ -134,8 +138,8 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\reservation $reservation
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Reservation $reservation
+     * @return RedirectResponse
      */
     public function destroy(Reservation $reservation)
     {
@@ -155,13 +159,13 @@ class ReservationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function search(Request $request)
     {
         if (Auth::check()) {
-            if ($request->date_or_other == 'time') {
-                $reservation = Reservation::where('date', '=', $request->date)->get();
+            if ($request->input('date_or_other') == 'time') {
+                $reservation = Reservation::where('date', '=', $request->input('date'))->get();
                 if (count($reservation) >= 1) {
                     return view('reservation.index', compact('reservation'));
                 } else {
@@ -169,11 +173,11 @@ class ReservationController extends Controller
                     return view('reservation.index', compact('reservation'))->with('status', 'Met huidige zoekopdracht hebben we niets gevonden, we laten alle reserveringen zien');
                 }
             } else {
-                $reservation = Reservation::where('name', 'like', '%' . $request->other . '%')
-                    ->orWhere('people', 'like', '%' . $request->other . '%')
-                    ->orWhere('id', 'like', '%' . $request->other . '%')
-                    ->orWhere('email_address', 'like', '%' . $request->other . '%')
-                    ->orWhere('phone_number', 'like', '%' . $request->other . '%')
+                $reservation = Reservation::where('name', 'like', '%' . $request->input('other') . '%')
+                    ->orWhere('people', 'like', '%' . $request->input('other') . '%')
+                    ->orWhere('id', 'like', '%' . $request->input('other') . '%')
+                    ->orWhere('email_address', 'like', '%' . $request->input('other') . '%')
+                    ->orWhere('phone_number', 'like', '%' . $request->input('other') . '%')
                     ->get();
                 if (count($reservation) >= 1) {
                     return view('reservation.index', compact('reservation'));
