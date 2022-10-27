@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ingredients>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
  */
-class IngredientsFactory extends Factory
+class ReviewFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,6 +19,9 @@ class IngredientsFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'stars' => fake()->numberBetween(0, 5),
+            'title' => 'Erg tevreden',
+            'description' => 'Ja, gewoon erg "tevreden"...',
         ];
     }
 }

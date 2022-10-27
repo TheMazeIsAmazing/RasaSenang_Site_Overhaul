@@ -27,38 +27,42 @@
             <h3>Alle items</h3>
             @if(Auth::check())
                 @if(Auth::user()->role == 0)
+                        <div class="row">
                         <a href="{{route('dish.create')}}"
                            class="btn btn-danger btn-sm">Nieuw gerecht</a>
-                        <form class="row flex-wrap" method="post"
-                              action="{{route('dish.search')}}">
-                            @csrf
-                            <div class="form-group mb-3 flex">
-                                <select name="ingredient" class="form-control">
-                                    <option value="">Kies een ingredient
-                                    </option>
-                                    @foreach($ingredients as $ingredient)
-                                        <option value="{{strtolower($ingredient->id)}}">{{strtolower($ingredient->name)}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('ingredient')
-                                <span class="alert-danger"> {{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="text" name="other" placeholder="Typ een naam of beschrijving"
-                                       class="form-control"
-                                       value="{{old('other')}}">
-                                @error('date')
-                                <span class="alert-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" name="submit" class="btn btn-primary">Zoeken</button>
-                            </div>
-                        </form>
+                            <a href="{{route('ingredient.index')}}"
+                               class="btn btn-primary btn-sm">Ingredienten overzicht</a>
+                        </div>
                 @endif
             @endif
+                <form class="row flex-wrap" method="post"
+                      action="{{route('dish.search')}}">
+                    @csrf
+                    <div class="form-group mb-3 flex">
+                        <select name="ingredient" class="form-control">
+                            <option value="">Kies een ingredient
+                            </option>
+                            @foreach($ingredients as $ingredient)
+                                <option value="{{strtolower($ingredient->id)}}">{{strtolower($ingredient->name)}}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('ingredient')
+                        <span class="alert-danger"> {{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" name="other" placeholder="Typ een naam of beschrijving"
+                               class="form-control"
+                               value="{{old('other')}}">
+                        @error('date')
+                        <span class="alert-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <button type="submit" name="submit" class="btn btn-primary">Zoeken</button>
+                    </div>
+                </form>
             <table class="table table-bordered">
                 <tr>
                     <th></th>

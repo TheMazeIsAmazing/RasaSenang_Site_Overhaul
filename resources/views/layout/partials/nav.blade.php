@@ -12,7 +12,8 @@
             <li><a href="{{ route('dish.index') }}">Menukaart</a></li>
             <li><a href="/afhalen">Afhalen</a></li>
             <li><a href="{{ route('reservation.create') }}">Reserveren</a></li>
-            <li><a href="/catering">Catering</a></li>
+{{--            <li><a href="/catering">Catering</a></li>--}}
+            <li><a href="{{ route('review.index') }}">Beoordelingen</a></li>
             <li><a href="/inloggen">Account</a></li>
         </ul>
         <a href="{{ route('homepage') }}">

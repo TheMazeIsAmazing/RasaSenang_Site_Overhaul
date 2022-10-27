@@ -94,5 +94,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Dish_Ingredient::factory(20)->create();
 
         \App\Models\Reservation::factory(10)->create();
+
+        \App\Models\Review::factory(10)->create();
     }
 }

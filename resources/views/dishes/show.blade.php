@@ -5,6 +5,9 @@
 @section('content')
     <section id="section-table-reservations">
         <div class="container">
+            @if (session('status'))
+                <h6 class="alert alert-success">{{ session('status') }}</h6>
+            @endif
             <div>
                 <a href="{{route('dish.index')}}" class="btn btn-success btn-sm">Alle gerechten</a>
             </div>
@@ -42,10 +45,14 @@
                         <button class="btn btn-danger btn-sm" type="submit">Verwijderen</button>
                     </form>
 
-                    {{--                    <a class="btn btn-success btn-sm" type="submit" href="{{route('dish.edit', $dish->id)}}">Wijzigen</a>--}}
-                    {{--                </div>--}}
+                    <a class="btn btn-success btn-sm" type="submit"
+                       href="{{route('dish.edit', $dish->id)}}">Wijzigen</a>
+                    <a class="btn btn-primary btn-sm" type="submit"
+                       href="{{route('dish.edit_ingredients', $dish->id)}}">Aanpassen/Toevoegen ingredienten</a>
+
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

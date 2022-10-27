@@ -26,8 +26,8 @@
                     Haal uw gerechten gemakkelijk af, of kom genieten in ons restaurant!
                 </p>
                 <div class="showcase-button-container">
-                    <a href="./afhalen" class="btn btn-primary">Afhalen</a>
-                    <a href="./reserveren" class="btn btn-primary">Reserveren</a>
+                    <a href="./afhalen" class="btn btn-danger">Afhalen</a>
+                    <a href="./reserveren" class="btn btn-danger">Reserveren</a>
                 </div>
             </div>
         </div>

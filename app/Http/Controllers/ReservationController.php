@@ -30,41 +30,6 @@ class ReservationController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function search(Request $request)
-    {
-        if (Auth::check()) {
-            if ($request->date_or_other == 'time') {
-                $reservation = Reservation::where('date', '=', $request->date)->get();
-                if (count($reservation) >= 1) {
-                    return view('reservation.index', compact('reservation'));
-                } else {
-                    $reservation = Reservation::all();
-                    return view('reservation.index', compact('reservation'))->with('status', 'Met huidige zoekopdracht hebben we niets gevonden, we laten alle reserveringen zien');
-                }
-            } else {
-                $reservation = Reservation::where('name', 'like', '%' . $request->other . '%')
-                    ->orWhere('people', 'like', '%' . $request->other . '%')
-                    ->orWhere('id', 'like', '%' . $request->other . '%')
-                    ->orWhere('email_address', 'like', '%' . $request->other . '%')
-                    ->orWhere('phone_number', 'like', '%' . $request->other . '%')
-                    ->get();
-                if (count($reservation) >= 1) {
-                    return view('reservation.index', compact('reservation'));
-                } else {
-                    $reservation = Reservation::all();
-                    return view('reservation.index', compact('reservation'))->with('status', 'Met huidige zoekopdracht hebben we niets gevonden, we laten alle reserveringen zien');
-                }
-            }
-        } else {
-            return view('errors.403');
-        }
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -104,10 +69,10 @@ class ReservationController extends Controller
     public function show(reservation $reservation)
     {
         if (Auth::check()) {
-            if($reservation->email_address == Auth::user()->email || Auth::user()->role == 0){
+            if ($reservation->email_address == Auth::user()->email || Auth::user()->role == 0) {
                 return view('reservation.show', compact('reservation'));
             } else {
-                return view('errors.403');
+                return view('errors.401');
             }
         } else {
             return view('errors.403');
@@ -123,10 +88,10 @@ class ReservationController extends Controller
     public function edit(reservation $reservation)
     {
         if (Auth::check()) {
-            if($reservation->email_address == Auth::user()->email || Auth::user()->role == 0){
+            if ($reservation->email_address == Auth::user()->email || Auth::user()->role == 0) {
                 return view('reservation.edit', compact('reservation'));
             } else {
-                return view('errors.403');
+                return view('errors.401');
             }
         } else {
             return view('errors.403');
@@ -138,7 +103,7 @@ class ReservationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\reservation $reservation
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function update(Request $request, reservation $reservation)
     {
@@ -174,7 +139,51 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        $reservation->delete();
-        return redirect()->route('reservation.index')->with('status', 'Reservering is succesvol verwijderd!');
+        if (Auth::check()) {
+            if ($reservation->email_address == Auth::user()->email || Auth::user()->role == 0) {
+                $reservation->delete();
+                return redirect()->route('reservation.index')->with('status', 'Reservering is succesvol verwijderd!');
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function search(Request $request)
+    {
+        if (Auth::check()) {
+            if ($request->date_or_other == 'time') {
+                $reservation = Reservation::where('date', '=', $request->date)->get();
+                if (count($reservation) >= 1) {
+                    return view('reservation.index', compact('reservation'));
+                } else {
+                    $reservation = Reservation::all();
+                    return view('reservation.index', compact('reservation'))->with('status', 'Met huidige zoekopdracht hebben we niets gevonden, we laten alle reserveringen zien');
+                }
+            } else {
+                $reservation = Reservation::where('name', 'like', '%' . $request->other . '%')
+                    ->orWhere('people', 'like', '%' . $request->other . '%')
+                    ->orWhere('id', 'like', '%' . $request->other . '%')
+                    ->orWhere('email_address', 'like', '%' . $request->other . '%')
+                    ->orWhere('phone_number', 'like', '%' . $request->other . '%')
+                    ->get();
+                if (count($reservation) >= 1) {
+                    return view('reservation.index', compact('reservation'));
+                } else {
+                    $reservation = Reservation::all();
+                    return view('reservation.index', compact('reservation'))->with('status', 'Met huidige zoekopdracht hebben we niets gevonden, we laten alle reserveringen zien');
+                }
+            }
+        } else {
+            return view('errors.403');
+        }
     }
 }

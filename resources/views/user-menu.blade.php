@@ -17,7 +17,7 @@
 
                     <div class="card-body">
                         @if (session('status'))
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-danger" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
@@ -28,7 +28,19 @@
                             <a class="btn btn-primary" href={{route('dish.index')}}>
                                 Overzicht gerechten
                             </a>
-
+                            @if ($which_review_button == 'biggerThan5')
+                                <a class="btn btn-primary" href={{route('review.create')}}>
+                                    Beoordeling Schrijven
+                                </a>
+                            @elseif($which_review_button == 'superCoolAdmin')
+                                <a class="btn btn-primary" href={{route('review.index')}}>
+                                    Beoordelingen
+                                </a>
+                            @else
+                                <a class="btn btn-dark" href={{route('review.create')}}>
+                                    Beoordeling Schrijven
+                                </a>
+                            @endif
                         <a class="btn btn-danger" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
