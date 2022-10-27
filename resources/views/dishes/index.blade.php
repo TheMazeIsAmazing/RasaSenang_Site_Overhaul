@@ -55,7 +55,7 @@
                         <input type="text" name="other" placeholder="Typ een naam of beschrijving"
                                class="form-control"
                                value="{{old('other')}}">
-                        @error('date')
+                        @error('other')
                         <span class="alert-danger">{{$message}}</span>
                         @enderror
                     </div>
