@@ -1,7 +1,8 @@
 @extends('layouts.web')
 @section('title', 'Nieuw gerecht')
 @section('top_text', 'Nieuw gerecht aanmaken')
-@section('bottom_text', 'Ik heb nu al trek!')
+@section('img_is_buffet', 'true')
+@section('classesHeader', 'showcase-area')
 @section('content')
     <section id="section-table-reservations">
         <div class="container">

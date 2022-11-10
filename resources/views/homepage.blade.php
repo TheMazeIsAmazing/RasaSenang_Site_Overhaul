@@ -2,11 +2,10 @@
 @section('title', 'Welkom op onze site')
 @section('top_text', 'De lekkerste sushi van Dordrecht')
 @section('bottom_text', 'Altijd vers bereid')
+@section('takeOut_and_Reservation_buttons', 'true')
+@section('img_is_sushi', 'true')
+@section('classesHeader', 'showcase-area showcase-homepage')
 @section('content')
-    {{--    <h1>Welcome</h1>--}}
-    {{--    <sub>this is the homepage</sub>--}}
-    {{--    <a href={{ route('about-page') }}>about us</a>--}}
-
     <section id="about">
         <div class="about-wrapper container">
             <div class="about-text">
@@ -34,9 +33,7 @@
                         <a
                             href="https://en.wikipedia.org/wiki/Fruit"
                             class="btn btn-primary"
-                            target="blank"
-                        >Meer informatie</a
-                        >
+                        >Meer informatie</a>
                     </div>
                 </div>
             </div>
@@ -46,11 +43,9 @@
                     <div class="img-content">
                         <h3>Javaans</h3>
                         <a
-                            href="https://en.wikipedia.org/wiki/Vegetable"
+                            href="{{route('buffet.index')}}"
                             class="btn btn-primary"
-                            target="blank"
-                        >Meer informatie</a
-                        >
+                        >Meer informatie</a>
                     </div>
                 </div>
             </div>
@@ -62,9 +57,7 @@
                         <a
                             href="https://en.wikipedia.org/wiki/Grain"
                             class="btn btn-primary"
-                            target="blank"
-                        >Meer informatie</a
-                        >
+                        >Meer informatie</a>
                     </div>
                 </div>
             </div>
@@ -234,8 +227,8 @@
                     Haal uw gerechten gemakkelijk af, of kom genieten in ons restaurant!
                 </p>
                 <div class="showcase-button-container">
-                    <a href="./afhalen" class="btn btn-danger">Afhalen</a>
-                    <a href="./reserveren" class="btn btn-danger">Reserveren</a>
+                    <a href="./afhalen" class="btn btn-primary">Afhalen</a>
+                    <a href="./reserveren" class="btn btn-primary">Reserveren</a>
                 </div>
             </div>
         </div>

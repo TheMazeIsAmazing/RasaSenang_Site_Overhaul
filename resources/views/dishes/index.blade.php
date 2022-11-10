@@ -2,6 +2,8 @@
 @section('title', 'Onze Menukaart')
 @section('top_text', 'Menukaart')
 @section('bottom_text', 'Welke is jouw favoriet?')
+@section('img_is_buffet', 'true')
+@section('classesHeader', 'showcase-area')
 @section('content')
     <section id="section-table-reservations">
         <div class="container">
@@ -29,9 +31,9 @@
                 @if(Auth::user()->role == 0)
                         <div class="row">
                         <a href="{{route('dish.create')}}"
-                           class="btn btn-danger btn-sm">Nieuw gerecht</a>
+                           class="btn btn-primary btn-sm">Nieuw gerecht</a>
                             <a href="{{route('ingredient.index')}}"
-                               class="btn btn-primary btn-sm">Ingrediënten overzicht</a>
+                               class="btn btn-secondary btn-sm">Ingrediënten overzicht</a>
                         </div>
                 @endif
             @endif

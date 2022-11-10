@@ -4,6 +4,7 @@
     @include('layout.partials.head')
 </head>
 <body>
+{{--@include('layout.partials.nav', ['which_header' => yield()])--}}
 @include('layout.partials.nav')
 @include('layout.partials.header')
 @yield('content')

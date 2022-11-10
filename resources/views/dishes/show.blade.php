@@ -1,7 +1,8 @@
 @extends('layouts.web')
 @section('title', 'Details Gerecht nr. ' . $dish->id)
 @section('top_text', 'Details Gerecht nr. ' . $dish->id)
-@section('bottom_text', 'Altijd een gedetailleerd overzicht')
+@section('img_is_buffet', 'true')
+@section('classesHeader', 'showcase-area')
 @section('content')
     <section id="section-table-reservations">
         <div class="container">
@@ -42,7 +43,7 @@
                         @csrf
                         @method('DELETE')
 
-                        <button class="btn btn-danger btn-sm" type="submit">Verwijderen</button>
+                        <button class="btn btn-primary btn-sm" type="submit">Verwijderen</button>
                     </form>
 
                     <a class="btn btn-success btn-sm" type="submit"

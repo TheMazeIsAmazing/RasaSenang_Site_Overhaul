@@ -1,5 +1,7 @@
 @extends('layouts.web')
 @section('top_text', 'Oeps, er is helaas iets mis gegaan.')
+@section('img_is_map', 'true')
+@section('classesHeader', 'showcase-area showcase-homepage')
 @section('content')
     <section id="about">
         <div class="about-wrapper container">
@@ -9,9 +11,9 @@
                     @yield('description_error')
                 </p>
             </div>
-            <div class="about-img">
-                <img src="{{asset('images/map.jpg')}}" alt="wéreldkaart"/>
-            </div>
+{{--            <div class="about-img">--}}
+{{--                <img src="{{asset('images/map.jpg')}}" alt="wéreldkaart"/>--}}
+{{--            </div>--}}
         </div>
     </section>
     <section id="contact">
@@ -26,8 +28,8 @@
                     Haal uw gerechten gemakkelijk af, of kom genieten in ons restaurant!
                 </p>
                 <div class="showcase-button-container">
-                    <a href="./afhalen" class="btn btn-danger">Afhalen</a>
-                    <a href="./reserveren" class="btn btn-danger">Reserveren</a>
+                    <a href="./afhalen" class="btn btn-primary">Afhalen</a>
+                    <a href="./reserveren" class="btn btn-primary">Reserveren</a>
                 </div>
             </div>
         </div>

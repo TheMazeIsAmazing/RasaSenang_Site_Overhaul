@@ -1,7 +1,8 @@
 @extends('layouts.web')
 @section('title', 'Gerecht nr. '.$dish->id.' wijzigen')
 @section('top_text', 'Gerecht wijzigen')
-@section('bottom_text', 'Ik heb nu al trek!')
+@section('img_is_buffet', 'true')
+@section('classesHeader', 'showcase-area')
 @section('content')
     <section id="section-table-reservations">
         <div class="container">

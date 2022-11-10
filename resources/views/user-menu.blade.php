@@ -41,7 +41,7 @@
                                     Beoordeling Schrijven
                                 </a>
                             @endif
-                        <a class="btn btn-danger" href="{{ route('logout') }}"
+                        <a class="btn btn-primary" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             {{ __('Uitloggen') }}

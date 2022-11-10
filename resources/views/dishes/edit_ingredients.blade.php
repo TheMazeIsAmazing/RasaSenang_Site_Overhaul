@@ -1,7 +1,8 @@
 @extends('layouts.web')
 @section('title', 'Ingrediënten toevoegen/verwijderen gerecht')
 @section('top_text', 'Ingrediënten toevoegen aan/verwijderen van '.$dish->name)
-@section('bottom_text', 'Lekker, nu met kip!')
+@section('img_is_buffet', 'true')
+@section('classesHeader', 'showcase-area')
 @section('content')
     <section id="section-table-reservations">
         <div class="container">
