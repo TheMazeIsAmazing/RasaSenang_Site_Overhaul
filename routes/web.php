@@ -47,6 +47,7 @@ Route::resource('review', ReviewController::class);
 use App\Http\Controllers\BuffetController;
 Route::resource('buffet', BuffetController::class);
 
+
 Auth::routes();
 use App\Http\Controllers\ProfileController;
 Route::get('/account', [ProfileController::class, 'index'])->name('profile');
